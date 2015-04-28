@@ -1,0 +1,10 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+    <file>images/lena.bmp</file>
+    <file>images/side1.png</file>
+    <file>images/brickwall.tga</file>
+    <file>images/graffiti_happy.tga</file>
+    <file>models/phoenix_ugv.md2</file>
+
+</qresource>
+</RCC>

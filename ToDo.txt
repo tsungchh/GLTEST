@@ -1,0 +1,2 @@
+1. Observer pattern to render different object
+   api, init, render
