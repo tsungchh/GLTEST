@@ -18,11 +18,15 @@ Widget::Widget( const QGLFormat& format, QWidget* parent )
 {
     stepsize = 0.2;
     scalefactor = 1.0;
+    mySub = new Subject();
     this->updateGL();
 }
 
 Widget::~Widget()
 {
+    SAFE_DELETE(mySub);
+    SAFE_DELETE(myTexTest);
+    SAFE_DELETE(myMesh);
 
 }
 
@@ -38,21 +42,21 @@ void Widget::initializeGL()
     printf("Curr dir = %s\n", qApp->applicationDirPath().toStdString().c_str());
     myTechnique.init(this);
 
-    myMesh = new Mesh();
-    myMesh->LoadMesh("/Users/hsutsungchun/Desktop/QTGL/GL_2/models/bunny.obj", this);
+    /**
+     *  Setup model to be rendered.
+     */
+    myMesh = new Mesh(mySub, "/Users/hsutsungchun/Desktop/QTGL/GL_2/models/bunny.obj");
+    myTexTest = new textest(mySub);
     DEBUG_GL();
-    //shader_test.initialize(this);
-    myTexTest.init();
-    
-    DEBUG_GL();
+
 
     glEnable(GL_DEPTH_TEST);
     //glEnable(GL_CULL_FACE);
 
-  //glEnable(GL_BLEND);
-  //glEnable(GL_POLYGON_SMOOTH);
-  //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    /**
+     *  Setup Light
+     */
     myTechnique.Enable();
     DirectionalLight m_directionalLight;
     m_directionalLight.Color = QVector3D(1.0f, 1.0f, 1.0f);
@@ -60,10 +64,11 @@ void Widget::initializeGL()
     m_directionalLight.DiffuseIntensity = 0.8f;
     m_directionalLight.Direction = QVector3D(1.0f, -1.0, 0.0);
     myTechnique.SetDirectionalLight(m_directionalLight);
-    
-  //glShadeModel(GL_SMOOTH);
 
 
+    /*
+     *  Setup matrix;
+     */
     projection.setToIdentity();
     projection.perspective(90.0f, 1.0f, 1.0f, 100.0f);
     //glOrtho(-10,10,-50,50, 0,20);
@@ -146,22 +151,19 @@ void Widget::paintGL()
 
     /** Render method applied below */
     myTechnique.SetTextureUnit(0);
-    myTexTest.draw();
-    //myTexTest.matrix = projection*modelview;
-
-    //shader_test.render();
-    myMesh->Render();
-
-
-    //textest* texture = new textest();
-    //multiTex* texture = new multiTex();
-    //texMatrix* texture = new texMatrix();
-    //texture->draw();
-
-    //drawAxis();
+    mySub->notify();
 
     myTechnique.Disable();
 }
+
+//textest* texture = new textest();
+//multiTex* texture = new multiTex();
+//texMatrix* texture = new texMatrix();
+//texture->draw();
+//drawAxis();
+
+
+
 
 // Todo
 void Widget::drawTriangle() {

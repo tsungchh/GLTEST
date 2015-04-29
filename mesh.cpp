@@ -1,6 +1,7 @@
 #include "mesh.h"
 #include "MYMACRO.h"
 #include "texture.h"
+#include "observer.h"
 
 Mesh::MeshEntry::MeshEntry() {
 
@@ -14,10 +15,11 @@ Mesh::MeshEntry::~MeshEntry() {
 
 }
 
-Mesh::Mesh()
+Mesh::Mesh(Subject* sub, const std::string& Filename) : Observer(sub)
 {
     ZERO_MEM(m_Buffers);
     VAO = 0;
+    LoadMesh(Filename);
 }
 
 Mesh::~Mesh()
@@ -32,7 +34,7 @@ Mesh::~Mesh()
 }
 
 
-bool Mesh::LoadMesh(const std::string &Filename, QObject* parent) {
+bool Mesh::LoadMesh(const std::string &Filename) {
 
 
     //Create VAO

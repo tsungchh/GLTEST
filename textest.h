@@ -3,18 +3,25 @@
 
 #include "patch.h"
 #include "mathBase.h"
+#include "observer.h"
 class Texture;
+class Subject;
 
-class textest
+class textest : public Observer
 {
 public:
-    textest();
+    textest(Subject* sub);
     ~textest();
 
     void draw();
     void init();
     QMatrix4x4 matrix;
     void printCoord();
+
+    void update()
+    {
+        draw();
+    }
 
 private:
 

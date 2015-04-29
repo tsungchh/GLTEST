@@ -14,7 +14,8 @@ HEADERS  = \
     MYMACRO.h \
     texture.h \
     glwidget.h \
-    mathbase.h
+    mathbase.h \
+    observer.h
 
 
 SOURCES  = main.cpp\
@@ -32,7 +33,8 @@ SOURCES  = main.cpp\
     rendertechnique.cpp \
     texture.cpp \
     glwidget.cpp \
-    mathbase.cpp
+    mathbase.cpp \
+    observer.cpp
 
 
 RESOURCES     = textest.qrc

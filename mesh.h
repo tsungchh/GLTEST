@@ -6,13 +6,14 @@
 #include <assimp/scene.h>
 #include "pickingfbo.h"
 #include "mathbase.h"
+#include "observer.h"
 
 
 using namespace std;
 
 class Texture;
 
-class Mesh
+class Mesh : public Observer
 {
     struct Vertex_VT
     {
@@ -47,14 +48,18 @@ class Mesh
     };
 
 public:
-    Mesh();
+    Mesh(Subject* sub, const std::string& FileName);
     ~Mesh();
-    bool LoadMesh(const std::string& FileName, QObject* parent);
+    bool LoadMesh(const std::string& FileName);
     void Render();
     // render index
     void RenderMouseIndex();
     // render triangle
     void RenderTriangle(PickingFBO::Pixelinfo);
+    void update()
+    {
+        Render();
+    }
 
 private:
     bool InitFromScene(const aiScene* pScene, const std::string& Filename);

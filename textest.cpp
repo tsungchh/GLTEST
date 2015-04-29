@@ -2,6 +2,7 @@
 #include "texture.h"
 #include <QImage>
 #include "MYMACRO.h"
+#include "observer.h"
 #define checkImageWidth 64
 #define checkImageHeight 64
 
@@ -22,13 +23,13 @@ int i, j, c;
 } }
 }
 
-textest::textest() {
+textest::textest(Subject* sub) : Observer(sub) {
     m_VBO = INVALID_OGL_VALUE;
     m_VAO = INVALID_OGL_VALUE;
     m_IBO = INVALID_OGL_VALUE;
 
     // ZERO_MEM(m_Buffers);
-
+    init();
 }
 
 textest::~textest()

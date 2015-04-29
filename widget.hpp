@@ -11,6 +11,8 @@
 #include "rendertechnique.h"
 
 class GLWidget;
+class Subject;
+class Observer;
 
 
 #include <QGLWidget>
@@ -33,7 +35,9 @@ private:
     QMatrix4x4 texmatrix;
     Mesh* myMesh;
     //shadertest shader_test;
-    textest myTexTest;
+    textest* myTexTest;
+
+    Subject* mySub;
 
     /** Take care of matrix, lighting and shader settings. */
     rendertechnique myTechnique;
